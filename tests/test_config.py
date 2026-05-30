@@ -14,3 +14,4 @@ class TestConfig:
         app_config = create_app(TestingConfig).config
         assert app_config["TESTING"] is True
         assert app_config["SQLALCHEMY_DATABASE_URI"] == "sqlite:///:memory:"
+

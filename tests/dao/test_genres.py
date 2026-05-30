@@ -4,6 +4,7 @@ from project.dao import GenresDAO
 from project.models import Genre
 
 
+
 class TestGenresDAO:
 
     @pytest.fixture

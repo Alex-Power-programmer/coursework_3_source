@@ -1,38 +1,27 @@
+from typing import Optional
+
 from project.dao.base import BaseDAO
-from project.models import User
+from project.models import User, UserSchema, AuthUserSchema
 
 
 class UsersDAO(BaseDAO[User]):
     __model__ = User
 
-    def register(self, user_data):
-        new_user = User(**user_data)
-        self._db_session.add(new_user)
-        self._db_session.commit()
+    def get_user_by_email(self, email: str):
+        user: Optional[User] = self._db_session.query(
+            User,
+        ).filter(
+            User.email == email,
+        ).one_or_none()
 
-        # return UserSchema().dump(new_user)
+        if user is not None:
+            return user
 
-    def update_user(self, user_data):
-        user = self.get_by_id(user_data['id'])
-
-        user.email = user_data['email']
-        user.password = user_data['password']
-        user.name = user_data['name']
-        user.surname = user_data['surname']
-        user.favorite_genre = user_data['favorite_genre']
-
-        self._db_session.add(user)
-        self._db_session.commit()
-        # return UserSchema().dump(user)
-
+        return None
 
     def update_patch_user(self, user_data):
-        user = self.get_by_id(user_data['id'])
+        user = self.get_user_by_email(user_data['email'])
 
-        if "email" in user_data:
-            user.email = user_data['email']
-        if "password" in user_data:
-            user.password = user_data['password']
         if "name" in user_data:
             user.name = user_data['name']
         if "surname" in user_data:
@@ -42,4 +31,5 @@ class UsersDAO(BaseDAO[User]):
 
         self._db_session.add(user)
         self._db_session.commit()
-        # return UserSchema().dump(user)
+        return UserSchema().dump(user)
+

@@ -7,6 +7,7 @@ from project.models import Genre
 from project.services import GenresService
 
 
+
 class TestGenresService:
 
     @pytest.fixture()

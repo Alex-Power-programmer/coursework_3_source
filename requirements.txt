@@ -6,3 +6,4 @@ SQLAlchemy==1.4.47
 Werkzeug==2.2.3
 marshmallow==3.16.0
 PyJWT==2.4.0
+pytest
