@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
-
+from marshmallow import Schema, fields
 from project.setup.db import models
 
 
@@ -31,8 +31,23 @@ class User(models.Base):
     __tablename__ = 'users'
 
     email = Column(String(255), unique=True, nullable=False)
-    password = Column(String(), nullable=False)
+    password_hash = Column(String(), nullable=False)
     name = Column(String(255))
     surname = Column(String(255))
-    favorite_genre = Column(String(255), ForeignKey('genres.name'))
+    favorite_genre = Column(ForeignKey(Genre.id))
 
+
+class AuthUserSchema(Schema):
+    id = fields.Int()
+    email = fields.Str(required=True)
+    password_hash = fields.String(required=True)
+
+
+class AuthRegisterRequest(Schema):
+    email = fields.Str(required=True)
+    password = fields.Str(required=True)
+
+class UserSchema(Schema):
+    name = fields.String()
+    surname = fields.String()
+    favorite_genre = fields.String()
