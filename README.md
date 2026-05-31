@@ -1,6 +1,10 @@
 # Исходный код для курсовой работы №3
 - (Необязательно) Если хотите увидеть ссылки и картинки (названия и отображение фильмов) то подключите ВПН или прокси для ютуба
 
+Backend: Flask, Marshmallow SQLAlchemy, sqlite, unit-test, pytest
+Database & Logging: PostgreSQL, Psycopg2, RotatingFileHandler
+DevOps: Docker, Docker Compose
+
 
 ## Описание проекта
 - Установка зависимостей
